@@ -1,12 +1,15 @@
 const express = require('express');
-const { createBlog, getAllBlogs, editBlog, deleteBlog } = require('../controllers/blogController');
-const upload = require('../middleware/multer');
+const upload = require("../middleware/multer")
 const uploadMultipleFile = require('../middleware/upload');
 const router = express.Router();
+const { createPost,
+  getAllBlogs,
+  editBlog,
+  deleteBlog } = require("../controllers/blogController")
 
 
 // for creating blogs or recent activities
-router.post('/create', upload.fields([{ name: 'images', maxCount: 10 }, { name: 'videos', maxCount: 5 }]), uploadMultipleFile, createBlog);
+router.post('/create', upload.fields([{ name: 'images', maxCount: 10 }, { name: 'videos', maxCount: 5 }]), uploadMultipleFile, createPost);
 
 // for getting all the blogs or recent activities
 router.get("/get-blogs", getAllBlogs)

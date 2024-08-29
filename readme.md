@@ -1,7 +1,7 @@
 # Admin Panel - Backend
 
 ## Overview
-This backend is designed to manage an admin panel where authorized administrators can log in and access a dashboard with various management functionalities. Key features include managing recent activities, including creating, editing, updating, and deleting posts with associated data, images, and videos.
+This backend is designed to manage an admin panel where authorized administrators can login and access a dashboard with various management functionalities. Key features include managing recent activities, including creating, editing, updating, and deleting posts with associated data, images, and videos.
 
 ## Features
 
@@ -14,3 +14,4 @@ This backend is designed to manage an admin panel where authorized administrator
   - **Create Posts**: Admins can create new posts for recent activities, including text content, images, and videos.
   - **Edit/Update Posts**: Existing posts can be easily edited or updated. This includes modifying text, replacing images, and updating videos.
   - **Delete Posts**: Admins have the option to delete any recent activity posts as needed, removing associated data, images, and videos.
+  - **Adding new admin**: the logged in user can 
