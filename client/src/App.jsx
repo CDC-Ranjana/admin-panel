@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
+import Table from './components/AdminTable';
 // import Sidebar from './Sidebar';
 // import Header from './Header';
 
@@ -17,7 +18,7 @@ const App = () => {
       <div className="flex-1">
         <Header toggleSidebar={toggleSidebar} />
         <main className="p-4">
-          {/* Other content goes here */}
+          <Table />
         </main>
       </div>
     </div>
