@@ -37,8 +37,12 @@ const Header = ({ toggleSidebar }) => {
       </div>
       <div className="flex items-center relative pr-12" ref={dropdownRef}>
         <div className="flex items-center cursor-pointer" onClick={handleDropdownToggle}>
-          <img src="https://colorlib.com/polygon/adminator/assets/static/images/logo.png" alt="User Avatar" className="w-12 h-12 rounded-full" />
-          <span className="font-medium">John Doe</span>
+          <img src="https://colorlib.com/polygon/adminator/assets/static/images/logo.png" alt="User Avatar" className="w-14 h-14 rounded-full" />
+          <div className='flex flex-col items-center'>
+            <p className="text-[16px]">John Doe</p>
+            <p className="text-[14px]">Super Admin</p>
+          </div>
+          
         </div>
 
         {isDropdownOpen && (
