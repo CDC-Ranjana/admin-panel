@@ -36,7 +36,7 @@ const Sidebar = ({ isCollapsed }) => {
           <li>
             <Link to="/bulletine" className="flex items-center p-2 text-gray-700 hover:bg-gray-100">
               <FaTable className="text-lg ml-4" />
-              {!isCollapsed && <span className="ml-4">Bulletines</span>}
+              {!isCollapsed && <span className="ml-4">Bulletins</span>}
             </Link>
           </li>
         </ul>

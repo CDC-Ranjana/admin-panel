@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 
 Modal.setAppElement('#root'); // This is required for accessibility reasons
 
-const Table = () => {
+const Table = (props) => {
   // Mock Data
   const [data, setData] = useState([
     { id: 1, name: 'John Doe', email: 'john@example.com', phone: '123-456-7890' },
@@ -12,7 +12,7 @@ const Table = () => {
     { id: 4, name: 'Suhash', email: 'jane@example.com', phone: '098-765-4321' },
   ]);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
   const [newAdmin, setNewAdmin] = useState({ name: '', email: '', phone: '' });
 
   // Edit Functionality
@@ -28,11 +28,11 @@ const Table = () => {
 
   // Handle opening/closing of modal
   const openModal = () => {
-    setIsModalOpen(true);
+    props.setIsModalOpen(true);
   };
 
   const closeModal = () => {
-    setIsModalOpen(false);
+    props.setIsModalOpen(false);
     setNewAdmin({ name: '', email: '', phone: '' }); // Reset form fields
   };
 
@@ -96,7 +96,7 @@ const Table = () => {
 
       {/* Add Admin Modal */}
       <Modal
-        isOpen={isModalOpen}
+        isOpen={props.isModalOpen}
         onRequestClose={closeModal}
         contentLabel="Add Admin Modal"
         className="bg-white p-6 rounded-lg shadow-lg max-w-lg mx-auto mt-20"

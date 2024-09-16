@@ -16,6 +16,7 @@ import Bulletine from './Pages/Bulletine';
 import AllActivities from './Pages/AllActivities';
 
 const App = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const toggleSidebar = () => {
@@ -24,15 +25,15 @@ const App = () => {
 
   return (
     <Router>
-      <div className="flex">
+      <div className="flex" >
         <Sidebar isCollapsed={isCollapsed} />
         <div className="flex-1">
           <Header toggleSidebar={toggleSidebar} />
           <div className="p-4">
             <Routes>
-              <Route path="/" element={<Table />} />
+              <Route path="/" element={<Table isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}/>} />
               <Route path="/bulletine" element={<Bulletine />} />
-              <Route path="/recent-activities" element={<RecentActivites />} />
+              <Route path="/recent-activities" element={<RecentActivites isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}/>} />
               <Route path='/all-activities' element={<AllActivities />}/>
             </Routes>
           </div>

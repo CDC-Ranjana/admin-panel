@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-
-const BlogForm = ({ blogId, onSuccess }) => {
+import Modal from 'react-modal';
+Modal.setAppElement('#root');
+const BlogForm = ({ blogId, onSuccess, closeModal,isModalOpen }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [images, setImages] = useState([]);
@@ -72,7 +73,13 @@ const BlogForm = ({ blogId, onSuccess }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col space-y-4 p-4 border rounded shadow-md">
+    // <form onSubmit={handleSubmit} className="flex flex-col space-y-4 p-4 border rounded shadow-md w-[60%] mx-auto">
+    <Modal
+    isOpen={isModalOpen}
+    onRequestClose={closeModal}
+    contentLabel="Add Admin Modal"
+    className="bg-white p-6 rounded-lg shadow-lg max-w-lg mx-auto mt-20 w-[100%]"
+  >
       <div>
         <label className="block text-gray-700 font-bold mb-2">Title:</label>
         <input
@@ -124,7 +131,24 @@ const BlogForm = ({ blogId, onSuccess }) => {
       >
         {blogId ? 'Update Blog' : 'Create Blog'}
       </button>
-    </form>
+      <div className="flex justify-end">
+            <button
+              type="button"
+              
+              className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700"
+            >
+              Add an Activity
+            </button>
+            <button
+              type="button"
+              onClick={closeModal}
+              className="ml-2 bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-700"
+            >
+              Cancel
+            </button>
+          </div>
+          </Modal>
+  
   );
 };
 
