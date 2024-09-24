@@ -3,7 +3,7 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import recentActivitiesReducer from '../Reducers/recentActivitiesSlice';
+import activitiesAndNewsReducer from '../Reducers/activitiesAndNewsSlice.js';
 
 // Redux Persist configuration
 const persistConfig = {
@@ -15,7 +15,7 @@ const persistConfig = {
 
 // Combine reducers (in case you add more slices later)
 const rootReducer = combineReducers({
-  recentActivities: recentActivitiesReducer,
+  activitiesAndNews: activitiesAndNewsReducer,
 });
 
 // Wrap the root reducer with persistReducer

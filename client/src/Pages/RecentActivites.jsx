@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 import { useDispatch, useSelector } from "react-redux";
-import { addActivity, removeActivity } from "../Reducers/recentActivitiesSlice";
+import { addActivity, removeActivity } from "../Reducers/activitiesAndNewsSlice";
 import activity1Img from "../assets/banner1.avif";
 import activity2Img from "../assets/banner2.avif";
 

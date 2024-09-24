@@ -14,6 +14,7 @@ import Email from './Pages/Bulletine';
 import RecentActivites from './Pages/RecentActivites';
 import Bulletine from './Pages/Bulletine';
 import AllActivities from './Pages/AllActivities';
+import ActivitiesAndBulletine from './Pages/ActivitiesAndBulletine.jsx';
 
 const App = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -32,8 +33,10 @@ const App = () => {
           <div className="p-4">
             <Routes>
               <Route path="/" element={<Table isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}/>} />
-              <Route path="/bulletine" element={<Bulletine />} />
-              <Route path="/recent-activities" element={<RecentActivites isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}/>} />
+              {/* <Route path="/bulletine" element={<Bulletine isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />} /> */}
+              {/* <Route path="/recent-activities" element={<RecentActivites isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}/>} /> */}
+              <Route path="/recent-activities" element={<ActivitiesAndBulletine type="recentActivities" isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />} />
+              <Route path="/bulletine" element={<ActivitiesAndBulletine type="news" isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />} />
               <Route path='/all-activities' element={<AllActivities />}/>
             </Routes>
           </div>
