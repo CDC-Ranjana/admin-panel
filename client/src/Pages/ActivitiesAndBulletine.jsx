@@ -185,15 +185,15 @@ const ActivitiesAndBulletine = (props) => {
 
   return (
     <div className="">
-      <div className="flex justify-between items-center py-6 mx-[30px]">
-        <h3>
+      <div className="flex justify-between items-center py-6 mx-[90px]">
+        <h3 className="text-[20px]">
           {props.type === "recentActivities" ? "Recent Activities" : "News"}
         </h3>
         <button
-          className="bg-green-500 text-white py-2 px-10 rounded"
+          className="bg-[#0074e8] text-white py-2 px-10 rounded"
           onClick={openModal}
         >
-          Add a {props.type === "recentActivities" ? "Activity" : "News"}
+          Add  {props.type === "recentActivities" ? "an activity" : "a news"}
         </button>
       </div>
 
@@ -280,7 +280,7 @@ const ActivitiesAndBulletine = (props) => {
               type="submit"
               className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700"
             >
-              Add the Activity
+              Add the {props.type === "recentActivities" ? " activity" : " news"}
             </button>
             <button
               type="button"
@@ -312,7 +312,10 @@ const ActivitiesAndBulletine = (props) => {
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 448 512"
                   fill="currentColor"
-                  className="w-[15px] absolute top-[25px] right-[20px] cursor-pointer text-red-500 hover:text-blue-500 transition-colors duration-200"
+                  className="w-[15px] absolute top-[25px] right-[20px] cursor-pointer text-red-500 "
+                  onClick={() => {
+                    setRecentActivities(recentActivitiesHandleDelete(index));
+                  }}
                 >
                   <path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z" />
                 </svg>
@@ -355,7 +358,8 @@ const ActivitiesAndBulletine = (props) => {
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 448 512"
                   fill="currentColor"
-                  className="w-[15px] absolute top-[25px] right-[20px] cursor-pointer text-red-500 hover:text-blue-500 transition-colors duration-200"
+                  className="w-[15px] absolute top-[25px] right-[20px] cursor-pointer text-red-500 "
+                  onClick={() => setHardcodedNews(newsHandleDelete(index))}
                 >
                   <path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z" />
                 </svg>
@@ -390,7 +394,8 @@ const ActivitiesAndBulletine = (props) => {
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 448 512"
                   fill="currentColor"
-                  className="w-[15px] absolute top-[25px] right-[20px] cursor-pointer text-red-500 hover:text-blue-500 transition-colors duration-200"
+                  className="w-[15px] absolute top-[25px] right-[20px] cursor-pointer text-red-500"
+                  onClick={()=>handleDelete(index)}
                 >
                   <path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z" />
                 </svg>

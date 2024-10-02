@@ -26,7 +26,7 @@ const App = () => {
 
   return (
     <Router>
-      <div className="flex" >
+      <div className="flex bg-[#f8f8f8]" >
         <Sidebar isCollapsed={isCollapsed} />
         <div className="flex-1">
           <Header toggleSidebar={toggleSidebar} />
