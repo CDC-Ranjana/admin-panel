@@ -6,7 +6,7 @@ import {
   removeActivity,
   removeNews,
   addNews,
-} from "../Reducers/activitiesAndNewsSlice";
+} from "../Reducers/adminSlice";
 import news2 from "../assets/news2.avif";
 import news1 from "../assets/news1.avif";
 import activity1Img from "../assets/banner1.avif";
@@ -15,15 +15,9 @@ import activity2Img from "../assets/banner2.avif";
 const ActivitiesAndBulletine = (props) => {
   const dispatch = useDispatch();
 
-  // const { activities, news } = useSelector((state) => {
-  //   console.log(state); // Log the state to check the structure
-  //   return {
-  //     activities: state.recentActivities,
-  //     news: state.news
-  //   };
-
-  // });
-  const { activities, news } = useSelector((state) => state.activitiesAndNews);
+  
+  const activities = useSelector((state) => state.admin.activities);
+  const news = useSelector((state)=>state.admin.news)
 
   console.log(activities, news);
 

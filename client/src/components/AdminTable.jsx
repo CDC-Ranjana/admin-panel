@@ -1,34 +1,39 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
+import { useDispatch, useSelector } from "react-redux";
+import { addAdmin, removeAdmin } from "../Reducers/adminSlice"; // Adjust the path as needed
 
 Modal.setAppElement("#root"); // This is required for accessibility reasons
 
 const Table = (props) => {
-  // Mock Data
-  const [data, setData] = useState([
-    {
-      id: 1,
-      name: "John Doe",
-      email: "john@example.com",
-      phone: "123-456-7890",
-    },
-    { id: 2, name: "Mohit", email: "jane@example.com", phone: "098-765-4321" },
-    { id: 3, name: "Aditya", email: "jane@example.com", phone: "098-765-4321" },
-    { id: 4, name: "Suhash", email: "jane@example.com", phone: "098-765-4321" },
-  ]);
+  const dispatch = useDispatch();
+  const admins = useSelector((state) => state.admin.admins); // Get admins from Redux store
 
-  // const [isModalOpen, setIsModalOpen] = useState(false);
   const [newAdmin, setNewAdmin] = useState({ name: "", email: "", phone: "" });
+  const [errors, setErrors] = useState({});
+  // const [data, setData] = useState([
+  //       {
+  //         id: 1,
+  //         name: "John Doe",
+  //         email: "john@example.com",
+  //         phone: "123-456-7890",
+  //       },
+  //       { id: 2, name: "Mohit", email: "jane@example.com", phone: "098-765-4321" },
+  //       { id: 3, name: "Aditya", email: "jane@example.com", phone: "098-765-4321" },
+  //       { id: 4, name: "Suhash", email: "jane@example.com", phone: "098-765-4321" },
+  //     ]);
 
-  // Edit Functionality
+
+
+  // Edit Functionality (to be implemented)
   const handleEdit = (id) => {
     alert(`Edit user with id: ${id}`);
+    // Implement edit functionality as needed
   };
 
   // Delete Functionality
   const handleDelete = (id) => {
-    const updatedData = data.filter((item) => item.id !== id);
-    setData(updatedData);
+    dispatch(removeAdmin(id));
   };
 
   // Handle opening/closing of modal
@@ -39,6 +44,7 @@ const Table = (props) => {
   const closeModal = () => {
     props.setIsModalOpen(false);
     setNewAdmin({ name: "", email: "", phone: "" }); // Reset form fields
+    setErrors({}); // Reset errors
   };
 
   // Handle form input changes
@@ -46,14 +52,28 @@ const Table = (props) => {
     setNewAdmin({ ...newAdmin, [e.target.name]: e.target.value });
   };
 
+  const validateForm = () => {
+    let formErrors = {};
+    if (!newAdmin.name.trim()) formErrors.name = "Name is required.";
+    if (!newAdmin.email.trim()) {
+      formErrors.email = "Email is required.";
+    } else if (!/\S+@\S+\.\S+/.test(newAdmin.email)) {
+      formErrors.email = "Email is invalid.";
+    }
+    if (!newAdmin.phone.trim()) formErrors.phone = "Phone number is required.";
+    return formErrors;
+  };
+
   // Handle adding a new admin
   const handleAddAdmin = () => {
-    const newAdminData = {
-      id: data.length + 1, // Simple increment ID
-      ...newAdmin,
-    };
-    setData([...data, newAdminData]);
-    closeModal(); // Close modal after adding admin
+    const formErrors = validateForm();
+
+    if (Object.keys(formErrors).length === 0) {
+      dispatch(addAdmin(newAdmin)); // Dispatch Redux action
+      closeModal(); // Close modal after successful submission
+    } else {
+      setErrors(formErrors);
+    }
   };
 
   return (
@@ -78,39 +98,33 @@ const Table = (props) => {
           </tr>
         </thead>
         <tbody>
-          {data.map((item) => (
-            <tr key={item.id} className="border-b">
+          
+          
+          {admins.map((item,index) => (
+            <tr key={index} className="border-b">
               <td className="py-2 px-4">{item.name}</td>
               <td className="py-2 px-4">{item.email}</td>
               <td className="py-2 px-4">{item.phone}</td>
               <td className="py-2 px-4 text-center">
-                {/* <button
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-2"
-                  onClick={() => handleEdit(item.id)}
-                >
-                   Edit 
-                 
-                </button> */}
-                
-                {/* <button
-                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
-                  onClick={() => handleDelete(item.id)}
-                >
-                  Delete
-                </button> */}
-                <div className="buttons flex gap-x-[30px]  justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-[20px]" fill="#0074e8" onClick={() => handleEdit(item.id)}>
-                  <path d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160L0 416c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-96c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 96c0 17.7-14.3 32-32 32L96 448c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l96 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 64z" />
-                </svg>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 448 512"
-                  fill="currentColor"
-                  className="w-[15px]  cursor-pointer text-red-500 "
-                  onClick={() => handleDelete(item.id)}
-                >
-                  <path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z" />
-                </svg>
+                <div className="buttons flex gap-x-[30px] justify-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512"
+                    className="w-[20px] cursor-pointer"
+                    fill="#0074e8"
+                    onClick={() => handleEdit(index)}
+                  >
+                    <path d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160L0 416c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-96c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 96c0 17.7-14.3 32-32 32L96 448c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l96 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 64z" />
+                  </svg>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 448 512"
+                    fill="currentColor"
+                    className="w-[15px] cursor-pointer text-red-500"
+                    onClick={() => handleDelete(index)}
+                  >
+                    <path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z" />
+                  </svg>
                 </div>
               </td>
             </tr>
@@ -123,10 +137,10 @@ const Table = (props) => {
         isOpen={props.isModalOpen}
         onRequestClose={closeModal}
         contentLabel="Add Admin Modal"
-       className="bg-white p-6 rounded-lg shadow-xl max-w-lg mx-auto mt-[100px] "
+        className="bg-white p-6 rounded-lg shadow-xl max-w-lg mx-auto mt-[100px]"
         overlayClassName="fixed inset-0 bg-black bg-opacity-50 overflow-auto"
       >
-        {/* <h2 className="text-xl font-bold mb-4">Add New Admin</h2> */}
+        <h2 className="text-xl font-bold mb-4">Add New Admin</h2>
         <form>
           <div className="mb-4">
             <label className="block text-gray-700 mb-2 font-bold">Name</label>
@@ -135,9 +149,10 @@ const Table = (props) => {
               name="name"
               value={newAdmin.name}
               onChange={handleInputChange}
-              className="border border-gray-300 p-2 w-full rounded"
+              className={`border p-2 w-full rounded`}
               required
             />
+            {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
           </div>
           <div className="mb-4">
             <label className="block text-gray-700 font-bold mb-2">Email</label>
@@ -146,9 +161,10 @@ const Table = (props) => {
               name="email"
               value={newAdmin.email}
               onChange={handleInputChange}
-              className="border border-gray-300 p-2 w-full rounded"
+              className={`border  p-2 w-full rounded`}
               required
             />
+            {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
           </div>
           <div className="mb-4">
             <label className="block text-gray-700 mb-2 font-bold">Phone</label>
@@ -157,9 +173,10 @@ const Table = (props) => {
               name="phone"
               value={newAdmin.phone}
               onChange={handleInputChange}
-              className="border border-gray-300 p-2 w-full rounded"
+              className={`border  p-2 w-full rounded`}
               required
             />
+            {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
           </div>
           <div className="flex justify-end">
             <button

@@ -1,13 +1,21 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 
-const  activitiesAndNewsSlice = createSlice({
-  name: 'activitiesAndNews',
+const  adminSlice = createSlice({
+  name: 'admin',
   initialState: {
+    admins : [],
     activities: [], // Store all activities as an array of objects
     news:[]
   },
   reducers: {
+    addAdmin:(state,action)=>{
+      state.admins.push({
+        name:action.payload.name,
+        email:action.payload.email,
+        phone:action.payload.phone
+      })
+    },
     addActivity: (state, action) => {
       state.activities.push({
         title: action.payload.title,
@@ -16,6 +24,9 @@ const  activitiesAndNewsSlice = createSlice({
         images: action.payload.images, // base64 encoded images
         videos: action.payload.videos, // base64 encoded videos
       });
+    },
+    removeAdmin: (state,action) =>{
+      state.admins = state.admins.filter((_, index) => index !== action.payload);
     },
     removeActivity: (state, action) => {
       state.activities = state.activities.filter((_, index) => index !== action.payload);
@@ -43,5 +54,5 @@ const  activitiesAndNewsSlice = createSlice({
   },
 });
 
-export const { addActivity,removeActivity,updateActivity,addNews,removeNews,updateNews } =  activitiesAndNewsSlice.actions;
-export default activitiesAndNewsSlice.reducer;
+export const {addAdmin,removeAdmin, addActivity,removeActivity,updateActivity,addNews,removeNews,updateNews } =  adminSlice.actions;
+export default adminSlice.reducer;

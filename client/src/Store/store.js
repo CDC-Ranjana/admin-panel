@@ -3,19 +3,18 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import activitiesAndNewsReducer from '../Reducers/activitiesAndNewsSlice.js';
+import adminReducer from '../Reducers/adminSlice.js';
 
 // Redux Persist configuration
 const persistConfig = {
   key: 'root',
   version: 1,
   storage,
-  // whitelist: ['recentActivities'], // Only persist 'recentActivities'
 };
 
 // Combine reducers (in case you add more slices later)
 const rootReducer = combineReducers({
-  activitiesAndNews: activitiesAndNewsReducer,
+  admin: adminReducer,
 });
 
 // Wrap the root reducer with persistReducer
