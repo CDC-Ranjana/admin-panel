@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "react-modal";
-import {
-  addActivity,
-  removeActivity,
-  removeNews,
-  addNews,
-} from "../Reducers/adminSlice";
+import { addActivity, removeActivity, removeNews, addNews, } from "../Reducers/adminSlice";
 import news2 from "../assets/news2.avif";
 import news1 from "../assets/news1.avif";
 import activity1Img from "../assets/banner1.avif";
@@ -15,9 +10,9 @@ import activity2Img from "../assets/banner2.avif";
 const ActivitiesAndBulletine = (props) => {
   const dispatch = useDispatch();
 
-  
+
   const activities = useSelector((state) => state.admin.activities);
-  const news = useSelector((state)=>state.admin.news)
+  const news = useSelector((state) => state.admin.news)
 
   console.log(activities, news);
 
@@ -48,6 +43,20 @@ const ActivitiesAndBulletine = (props) => {
       description:
         "The Brajkulam Educational Center is dedicated to nurturing young minds and shaping the future of the Braj region. This center provides quality education and skill training to children and youth, empowering them with the knowledge and tools needed to thrive in today’s world. ",
     },
+    {
+      media: activity2Img,
+      date: "January 25, 2024",
+      title: "Brajkulam Educational Center: Nurturing Minds, Shaping Futures",
+      description:
+        "The Brajkulam Educational Center is dedicated to nurturing young minds and shaping the future of the Braj region. This center provides quality education and skill training to children and youth, empowering them with the knowledge and tools needed to thrive in today’s world. ",
+    },
+    {
+      media: activity2Img,
+      date: "January 25, 2024",
+      title: "Brajkulam Educational Center: Nurturing Minds, Shaping Futures",
+      description:
+        "The Brajkulam Educational Center is dedicated to nurturing young minds and shaping the future of the Braj region. This center provides quality education and skill training to children and youth, empowering them with the knowledge and tools needed to thrive in today’s world. ",
+    },
   ]);
 
   // hard coded news for initial render
@@ -60,6 +69,7 @@ const ActivitiesAndBulletine = (props) => {
       description:
         "The Soul of Braj Federation is proud to announce its partnership with the Raturi Foundation and The Hindu Diaspora Foundation, joining forces to enhance welfare initiatives in the Braj region. This collaboration aims to amplify the impact of ongoing efforts in providing essential services like clean and healthy environments, affordable food, basic education, and skill training to the underserved communities of Vrindavan and surrounding areas.",
     },
+
     {
       media: news1,
       date: "July 20, 2024",
@@ -291,93 +301,79 @@ const ActivitiesAndBulletine = (props) => {
       <div className="mt-6 flex flex-wrap justify-evenly gap-4">
         {data == activities
           ? recentActivities.map((activity, index) => (
-              <div
-                key={index}
-                className="border p-4 mb-4 rounded relative flex-grow flex-shrink-0 min-w-[250px] max-w-[350px] w-full"
+            <div
+              key={index}
+              className="border p-4 mb-4 rounded relative flex-grow flex-shrink-0 min-w-[250px] max-w-[350px] w-full"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 448 512"
+                fill="currentColor"
+                className="w-[15px] absolute top-[25px] right-[20px] cursor-pointer text-red-500 "
+                onClick={() => {
+                  setRecentActivities(recentActivitiesHandleDelete(index));
+                }}
               >
-                {/* <button
-                  type="button"
-                  onClick={() => {
-                    setRecentActivities(recentActivitiesHandleDelete(index));
-                  }}
-                  className="absolute top-[15px] right-2 text-white bg-red-700 hover:bg-red-800 rounded-lg text-sm px-3 py-1.5"
-                > */}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 448 512"
-                  fill="currentColor"
-                  className="w-[15px] absolute top-[25px] right-[20px] cursor-pointer text-red-500 "
-                  onClick={() => {
-                    setRecentActivities(recentActivitiesHandleDelete(index));
-                  }}
-                >
-                  <path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z" />
-                </svg>
+                <path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z" />
+              </svg>
 
-                {/* </button> */}
-                <h4 className="font-bold text-xl overflow-hidden text-ellipsis whitespace-pre w-[90%]">
-                  {activity.title}
-                </h4>
-                <img
-                  src={activity.media}
-                  alt={`activity-${index}`}
-                  className="w-full h-[200px] object-cover mt-[20px]"
-                />
-                <div className="flex items-center gap-x-[5px] mt-[15px] ">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 512 512"
-                    className="w-[10px]"
-                  >
-                    <path d="M464 256A208 208 0 1 1 48 256a208 208 0 1 1 416 0zM0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM232 120l0 136c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2 280 120c0-13.3-10.7-24-24-24s-24 10.7-24 24z" />
-                  </svg>
-                  <span className="text-[13px]">{activity.date}</span>
-                </div>
-                <p className="mt-[10px] italic">{activity.description}</p>
-              </div>
-            ))
-          : hardcodedNews.map((newS, index) => (
-              <div
-                key={index}
-                className="border p-4 mb-4 rounded relative flex-grow flex-shrink-0 min-w-[250px] max-w-[350px] w-full"
-              >
-                {/* <button
-                  type="button"
-                  onClick={() => setHardcodedNews(newsHandleDelete(index))}
-                  className="absolute top-[15px] right-2 text-white bg-red-700 hover:bg-red-800 rounded-lg text-sm px-3 py-1.5"
-                >
-                  Delete
-                </button> */}
+              {/* </button> */}
+              <h4 className="font-bold text-xl overflow-hidden text-ellipsis whitespace-pre w-[90%]">
+                {activity.title}
+              </h4>
+              <img
+                src={activity.media}
+                alt={`activity-${index}`}
+                className="w-full h-[200px] object-cover mt-[20px]"
+              />
+              <div className="flex items-center gap-x-[5px] mt-[15px] ">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 448 512"
-                  fill="currentColor"
-                  className="w-[15px] absolute top-[25px] right-[20px] cursor-pointer text-red-500 "
-                  onClick={() => setHardcodedNews(newsHandleDelete(index))}
+                  viewBox="0 0 512 512"
+                  className="w-[10px]"
                 >
-                  <path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z" />
+                  <path d="M464 256A208 208 0 1 1 48 256a208 208 0 1 1 416 0zM0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM232 120l0 136c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2 280 120c0-13.3-10.7-24-24-24s-24 10.7-24 24z" />
                 </svg>
-                <h4 className="font-bold text-xl overflow-hidden text-ellipsis whitespace-nowrap w-[90%]">
-                  {newS.title}
-                </h4>
-                <img
-                  src={newS.media}
-                  alt={`news-${index}`}
-                  className="w-full h-[200px] object-cover mt-[20px]"
-                />
-                <div className="flex items-center gap-x-[5px] mt-[15px] ">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 512 512"
-                    className="w-[10px]"
-                  >
-                    <path d="M464 256A208 208 0 1 1 48 256a208 208 0 1 1 416 0zM0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM232 120l0 136c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2 280 120c0-13.3-10.7-24-24-24s-24 10.7-24 24z" />
-                  </svg>
-                  <span className="text-[13px]">{newS.date}</span>
-                </div>
-                <p className="mt-[10px] italic">{newS.description}</p>
+                <span className="text-[13px]">{activity.date}</span>
               </div>
-            ))}
+              <p className="mt-[10px] italic">{activity.description.length > 20 ? activity.description + "..." : activity.description}</p>
+            </div>
+          ))
+          : hardcodedNews.map((newS, index) => (
+            <div
+              key={index}
+              className="border p-4 mb-4 rounded relative flex-grow flex-shrink-0 min-w-[250px] max-w-[350px] w-full"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 448 512"
+                fill="currentColor"
+                className="w-[15px] absolute top-[25px] right-[20px] cursor-pointer text-red-500 "
+                onClick={() => setHardcodedNews(newsHandleDelete(index))}
+              >
+                <path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z" />
+              </svg>
+              <h4 className="font-bold text-xl overflow-hidden text-ellipsis whitespace-nowrap w-[90%]">
+                {newS.title}
+              </h4>
+              <img
+                src={newS.media}
+                alt={`news-${index}`}
+                className="w-full h-[200px] object-cover mt-[20px]"
+              />
+              <div className="flex items-center gap-x-[5px] mt-[15px] ">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 512 512"
+                  className="w-[10px]"
+                >
+                  <path d="M464 256A208 208 0 1 1 48 256a208 208 0 1 1 416 0zM0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM232 120l0 136c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2 280 120c0-13.3-10.7-24-24-24s-24 10.7-24 24z" />
+                </svg>
+                <span className="text-[13px]">{newS.date}</span>
+              </div>
+              <p className="mt-[10px] italic">{newS.description}</p>
+            </div>
+          ))}
       </div>
 
       {/* Render Redux activities after a new one is added */}
@@ -385,14 +381,14 @@ const ActivitiesAndBulletine = (props) => {
         {data.map((item, index) => (
           <div key={index} className="border p-4 mb-4 rounded relative w-[35%]">
             <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 448 512"
-                  fill="currentColor"
-                  className="w-[15px] absolute top-[25px] right-[20px] cursor-pointer text-red-500"
-                  onClick={()=>handleDelete(index)}
-                >
-                  <path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z" />
-                </svg>
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 448 512"
+              fill="currentColor"
+              className="w-[15px] absolute top-[25px] right-[20px] cursor-pointer text-red-500"
+              onClick={() => handleDelete(index)}
+            >
+              <path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z" />
+            </svg>
             <h4 className="font-bold text-xl overflow-hidden text-ellipsis whitespace-pre w-[90%]">
               {item.title}
             </h4>

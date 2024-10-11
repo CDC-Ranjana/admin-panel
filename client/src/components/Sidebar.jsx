@@ -13,7 +13,7 @@ import {
 
 const Sidebar = ({ isCollapsed }) => {
   const location = useLocation();
-  console.log(location.pathname);
+  // console.log(location.pathname);
   return (
     <div
       className={`h-screen bg-[#1d1d42] border transition-width duration-300 ${

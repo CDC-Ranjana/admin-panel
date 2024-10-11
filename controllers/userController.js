@@ -1,75 +1,107 @@
-const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const User = require('../models/newAdminModel');
+const User = require("../models/newAdminModel")
 
 
-const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30d' });
+const getAllUsers = async (req, res) => {
+  try {
+    // Fetch all users from the database
+    const users = await User.find();
+
+    // Return the users as a JSON response
+    return res.status(200).json({
+      success: true,
+      count: users.length,
+      data: users
+    });
+  } catch (error) {
+    // Handle errors and send a 500 response
+    console.error("Error fetching users:", error);
+    return res.status(500).json({
+      success: false,
+      message: 'Server Error',
+      error: error.message
+    });
+  }
 };
 
+
 const addNewAdmin = async (req, res) => {
-  const { username, email, password } = req.body;
-  console.log(req.body);
 
-
-  if (!username || !email || !password) {
-    return res.status(400).json({ message: 'All fields are required' });
-  }
-
-
-  const adminExists = await User.findOne({ isAdmin: true });
-  if (adminExists) {
-    return res.status(400).json({ message: 'Admin account already exists. Please log in to your account.' });
-  }
+  
+  const { username, email, password, phone, isAdmin } = req.body;
+  console.log(req);
 
   try {
-    // Hash the password before saving
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    // Check if admin with the same email already exists
+    const existingAdmin = await User.findOne({ email });
+    if (existingAdmin) {
+      return res.status(400).json({ message: "Admin with this email already exists." });
+    }
 
-    const newUser = new User({ username, email, password: hashedPassword, isAdmin: true });
-    await newUser.save();
+    // Create new admin
+    const newAdmin = new User({
+      username,
+      email,
+      password,
+      phone,
+      isAdmin,
+    });
 
-    res.status(201).json({ message: 'Admin registered successfully' });
+    // Save the admin to the database
+    await newAdmin.save();
+    res.status(201).json({ message: "Admin created successfully", admin: newAdmin });
   } catch (error) {
-    res.status(500).json({ message: 'Failed to register admin', error });
+    console.error(error);
+    res.status(500).json({ message: "Server error", error: error.message });
   }
 };
 
 const editNewAdmin = async (req, res) => {
   const { id } = req.params;
-  const { username, email, password, confirmPassword } = req.body;
 
-  if (!username || !email) {
-    return res.status(400).json({ message: 'Username and email are required' });
+  // Destructure the request body to extract all relevant fields
+  const { username, email, phone, isAdmin } = req.body;
+
+  // Ensure required fields are present
+  if (!username || !email || !phone) {
+    return res.status(400).json({ message: 'Username, email, and phone are required' });
   }
 
-  if (password && password !== confirmPassword) {
-    return res.status(400).json({ message: 'Passwords do not match' });
-  }
 
   try {
+    // Find the admin by ID
     const admin = await User.findById(id);
+    console.log("Admin found: ", admin);
 
-    if (!admin || !admin.isAdmin) {
+    // Check if the admin exists and is an admin
+    if (!admin) {
       return res.status(404).json({ message: 'Admin not found' });
     }
 
-    admin.username = username;
-    admin.email = email;
+    // Update the fields if they are provided in the request body
+    if (username) admin.username = username;
+    if (email) admin.email = email;
+    if (phone) admin.phone = phone;
+    if (typeof isAdmin !== 'undefined') admin.isAdmin = isAdmin;
 
-    if (password) {
-      // Hash the new password before saving
-      const salt = await bcrypt.genSalt(10);
-      admin.password = await bcrypt.hash(password, salt);
-    }
+    // If a new password is provided, hash it before saving
+    // if (password) {
+    //   const salt = await bcrypt.genSalt(10);
+    //   admin.password = await bcrypt.hash(password, salt);
+    // }
 
+    // Save the updated admin to the database
     await admin.save();
+
+    // Respond with success message and updated admin data
     res.status(200).json({ message: 'Admin updated successfully', admin });
   } catch (error) {
+    // Handle any errors that occur
+    console.error('Error updating admin:', error);
     res.status(500).json({ message: 'Failed to update admin', error });
   }
 };
+
 
 const deleteNewAdmin = async (req, res) => {
   const { id } = req.params;
@@ -86,12 +118,6 @@ const deleteNewAdmin = async (req, res) => {
     res.status(500).json({ message: 'Failed to delete admin', error });
   }
 };
-
-
-
-
-
-
 
 
 
@@ -136,4 +162,4 @@ const loginUser = async (req, res) => {
   }
 }
 
-module.exports = { addNewAdmin, loginUser, deleteNewAdmin, editNewAdmin }
+module.exports = { addNewAdmin, loginUser, deleteNewAdmin, editNewAdmin, getAllUsers }
