@@ -79,9 +79,9 @@ const Table = (props) => {
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between items-center py-6">
-        <h3 className="text-[20px]">List of all the admins</h3>
+        <h3 className="text-2xl font-semibold">List of all the admins</h3>
         <button
-          className="bg-[#0074e8] text-white py-2 px-10 rounded"
+          className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg transition duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
           onClick={openModal}
         >
           Add admin
@@ -182,14 +182,14 @@ const Table = (props) => {
             <button
               type="button"
               onClick={handleAddAdmin}
-              className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700"
+              className="bg-green-500 text-white font-semibold py-2 px-4 rounded hover:bg-green-700"
             >
               Add Admin
             </button>
             <button
               type="button"
               onClick={closeModal}
-              className="ml-2 bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-700"
+              className="ml-2 bg-gray-500 text-white font-semibold py-2 px-4 rounded hover:bg-gray-700"
             >
               Cancel
             </button>

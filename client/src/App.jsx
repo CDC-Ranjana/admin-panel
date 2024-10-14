@@ -1,43 +1,60 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Sidebar from './components/Sidebar';
-import Header from './components/Header';
-// import Dashboard from './pages/Dashboard';
-// import Email from './pages/Email';
-// import Compose from './pages/Compose';
-// import Calendar from './pages/Calendar';
-// import Charts from './pages/Charts';
-// import Tables from './pages/Tables';
-// import Maps from './pages/Maps';
-import Table from './components/AdminTable';
 
-import AllActivities from './Pages/AllActivities';
-import ActivitiesAndBulletine from './Pages/ActivitiesAndBulletine.jsx';
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import ProtectedLayout from "./components/ProtectedLayout";
+import Login from "./Pages/Login.jsx";
 
 const App = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    // Initialize from localStorage to persist authentication state
+    return localStorage.getItem('isAuthenticated') === 'true';
+  });
 
-  const toggleSidebar = () => {
-    setIsCollapsed(!isCollapsed);
-  };
+  useEffect(() => {
+    // Sync isAuthenticated with localStorage
+    if (isAuthenticated) {
+      localStorage.setItem('isAuthenticated', 'true');
+    } else {
+      localStorage.removeItem('isAuthenticated');
+    }
+  }, [isAuthenticated]);
 
   return (
     <Router>
-      <div className="flex bg-[#f8f8f8]" >
-        <Sidebar isCollapsed={isCollapsed} />
-        <div className="flex-1">
-          <Header toggleSidebar={toggleSidebar} />
-          <div className="p-4">
-            <Routes>
-              <Route path="/" element={<Table isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}/>} />
-              <Route path="/recent-activities" element={<ActivitiesAndBulletine type="recentActivities" isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />} />
-              <Route path="/bulletine" element={<ActivitiesAndBulletine type="news" isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />} />
-              <Route path='/all-activities' element={<AllActivities />}/>
-            </Routes>
-          </div>
-        </div>
-      </div>
+      <Routes>
+        {/* Public Route */}
+        <Route
+          path="/login"
+          element={<Login setIsAuthenticated={setIsAuthenticated} />}
+        />
+
+        {/* Redirect root to login if not authenticated */}
+        <Route
+          path="/"
+          element={
+            isAuthenticated ? (
+              <Navigate to="/dashboard" replace />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
+        />
+
+        {/* Protected Routes */}
+        <Route
+          path="/*"
+          element={
+            isAuthenticated ? (
+              <ProtectedLayout setIsAuthenticated={setIsAuthenticated} />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
+        />
+
+        {/* Catch-all Route */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
     </Router>
   );
 };
