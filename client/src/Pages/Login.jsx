@@ -40,6 +40,7 @@ const Login = ({ setIsAuthenticated }) => { // Receive setIsAuthenticated as a p
     setPasswordErrorMessage("");
     return true;
   };
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -48,7 +49,7 @@ const Login = ({ setIsAuthenticated }) => { // Receive setIsAuthenticated as a p
       // Update isAuthenticated state
       setIsAuthenticated(true); // Call setIsAuthenticated here
       // Optionally, you can navigate to a different page if you want
-       navigate("/"); // Uncomment this if you want to navigate
+       navigate("/dashboard"); // Uncomment this if you want to navigate
     }
   };
 

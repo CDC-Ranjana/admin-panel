@@ -208,8 +208,8 @@ const ActivitiesAndBulletine = (props) => {
       <Modal
         isOpen={isModalOpen}
         onRequestClose={closeModal}
-        className="bg-white p-6 rounded-lg shadow-xl w-full max-w-lg mx-auto mt-10 overflow-auto"
-        overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-start z-40"
+        className="bg-white p-6 rounded-lg shadow-xl w-full max-w-lg mx-auto mt-10 mb-10 max-h-[500px] overflow-y-auto"
+  overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-start z-40"
       >
         <form onSubmit={handleSubmit}>
           {/* Title Input */}
