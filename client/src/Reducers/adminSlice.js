@@ -11,7 +11,7 @@ const  adminSlice = createSlice({
   reducers: {
     addAdmin:(state,action)=>{
       state.admins.push({
-        name:action.payload.name,
+        username:action.payload.username,
         email:action.payload.email,
         phone:action.payload.phone
       })

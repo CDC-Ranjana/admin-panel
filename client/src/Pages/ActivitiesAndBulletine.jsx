@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "react-modal";
@@ -104,9 +103,11 @@ const ActivitiesAndBulletine = (props) => {
   const validateForm = () => {
     let formErrors = {};
     if (!title.trim()) formErrors.title = "Title is required.";
-    if (!description.trim()) formErrors.description = "Description is required.";
+    if (!description.trim())
+      formErrors.description = "Description is required.";
     if (!date.trim()) formErrors.date = "Date is required.";
-    if (images.length === 0) formErrors.images = "At least one image is required.";
+    if (images.length === 0)
+      formErrors.images = "At least one image is required.";
     return formErrors;
   };
 
@@ -191,7 +192,7 @@ const ActivitiesAndBulletine = (props) => {
   };
 
   return (
-    <div className="container  px-4">
+    <div className="container   px-4">
       {/* Header */}
       <div className="flex justify-between items-center py-6">
         <h3 className="text-2xl font-semibold">
@@ -210,7 +211,7 @@ const ActivitiesAndBulletine = (props) => {
         isOpen={isModalOpen}
         onRequestClose={closeModal}
         className="bg-white p-6 rounded-lg shadow-xl w-full max-w-lg mx-auto mt-10 mb-10 max-h-[500px] overflow-y-auto"
-  overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-start z-40"
+        overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-start z-40"
       >
         <form onSubmit={handleSubmit}>
           {/* Title Input */}
@@ -408,24 +409,38 @@ const ActivitiesAndBulletine = (props) => {
                   })
                 }
               >
-                {/* Delete Icon */}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 448 512"
-                  fill="currentColor"
-                  className="w-4 h-4 absolute top-4 right-5 cursor-pointer text-red-500"
-                  onClick={(e) => {
-                    e.stopPropagation(); // Prevent triggering the expand
-                    recentActivitiesHandleDelete(index);
-                  }}
-                >
-                  <path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z" />
-                </svg>
-
+                
+                <div className="flex">
                 {/* Title */}
                 <h4 className="font-bold text-xl overflow-hidden text-ellipsis whitespace-pre w-[90%]">
                   {activity.title}
                 </h4>
+                <div className="buttons flex gap-x-6 justify-center">
+              {/* Edit Icon */}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 512 512"
+                className="w-5 cursor-pointer"
+                fill="#0074e8"
+                onClick={() => handleEdit(admin)}
+              >
+                <path d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160L0 416c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-96c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 96c0 17.7-14.3 32-32 32L96 448c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l96 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 64z" />
+              </svg>
+              {/* Delete Icon */}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 448 512"
+                fill="currentColor"
+                className="w-4 cursor-pointer text-red-500"
+                onClick={(e) => {
+                  e.stopPropagation(); // Prevent triggering the expand
+                  recentActivitiesHandleDelete(index);
+                }}
+              >
+                <path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z" />
+              </svg>
+            </div>
+            </div>
 
                 {/* Image */}
                 <img
@@ -447,7 +462,9 @@ const ActivitiesAndBulletine = (props) => {
                 </div>
 
                 {/* Description */}
-                <p className="mt-2 italic line-clamp-4">{activity.description}</p>
+                <p className="mt-2 italic line-clamp-4">
+                  {activity.description}
+                </p>
               </div>
             ))
           : hardcodedNews.map((newS, index) => (
@@ -461,24 +478,37 @@ const ActivitiesAndBulletine = (props) => {
                   })
                 }
               >
-                {/* Delete Icon */}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 448 512"
-                  fill="currentColor"
-                  className="w-4 h-4 absolute top-4 right-5 cursor-pointer text-red-500"
-                  onClick={(e) => {
-                    e.stopPropagation(); // Prevent triggering the expand
-                    newsHandleDelete(index);
-                  }}
-                >
-                  <path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z" />
-                </svg>
-
+               <div className="flex">
                 {/* Title */}
                 <h4 className="font-bold text-xl overflow-hidden text-ellipsis whitespace-pre w-[90%]">
                   {newS.title}
                 </h4>
+                <div className="buttons flex gap-x-6 justify-center">
+              {/* Edit Icon */}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 512 512"
+                className="w-5 cursor-pointer"
+                fill="#0074e8"
+                onClick={() => handleEdit(admin)}
+              >
+                <path d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160L0 416c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-96c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 96c0 17.7-14.3 32-32 32L96 448c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l96 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 64z" />
+              </svg>
+              {/* Delete Icon */}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 448 512"
+                fill="currentColor"
+                className="w-4 cursor-pointer text-red-500"
+                onClick={(e) => {
+                  e.stopPropagation(); // Prevent triggering the expand
+                  newsHandleDelete(index);
+                }}
+              >
+                <path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z" />
+              </svg>
+            </div>
+                </div>
 
                 {/* Image */}
                 <img
@@ -513,35 +543,55 @@ const ActivitiesAndBulletine = (props) => {
             className="border cursor-pointer p-4 mb-4 rounded relative flex-grow flex-shrink-0 min-w-[250px] max-w-[350px] w-full hover:shadow-lg transition-shadow duration-300"
             onClick={() =>
               setExpandedItem({
-                source: props.type === "recentActivities" ? "reduxActivities" : "reduxNews",
+                source:
+                  props.type === "recentActivities"
+                    ? "reduxActivities"
+                    : "reduxNews",
                 index,
               })
             }
           >
-            {/* Delete Icon */}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 448 512"
-              fill="currentColor"
-              className="w-4 h-4 absolute top-4 right-5 cursor-pointer text-red-500"
-              onClick={(e) => {
-                e.stopPropagation(); // Prevent triggering the expand
-                handleDelete(index);
-              }}
-            >
-              <path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z" />
-            </svg>
-
-            {/* Title */}
+            
+            
+            <div className="flex">
+              {/* Title */}
             <h4 className="font-bold text-xl overflow-hidden text-ellipsis whitespace-pre w-[90%]">
               {item.title}
             </h4>
+            <div className="buttons flex gap-x-6 justify-center">
+              {/* Edit Icon */}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 512 512"
+                className="w-5 cursor-pointer"
+                fill="#0074e8"
+                onClick={() => handleEdit(admin)}
+              >
+                <path d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160L0 416c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-96c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 96c0 17.7-14.3 32-32 32L96 448c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l96 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 64z" />
+              </svg>
+              {/* Delete Icon */}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 448 512"
+                fill="currentColor"
+                className="w-4 cursor-pointer text-red-500"
+                onClick={(e) => {
+                  e.stopPropagation(); // Prevent triggering the expand
+                  handleDelete(index);
+                }}
+              >
+                <path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z" />
+              </svg>
+            </div>
+            </div>
 
             {/* Images */}
             {item.images && item.images.length > 0 && (
               <img
                 src={item.images[0]}
-                alt={`redux-${props.type === "recentActivities" ? "activity" : "news"}-${index}`}
+                alt={`redux-${
+                  props.type === "recentActivities" ? "activity" : "news"
+                }-${index}`}
                 className="w-full h-48 object-cover rounded mt-2"
               />
             )}
