@@ -5,17 +5,26 @@ const blogRoutes = require('./routes/blogRoute');
 const connectDB = require('./config/db');
 const User = require('./models/newAdminModel');
 const bcrypt = require("bcryptjs")
+const cors = require("cors")
+
+
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 
 
+
+
 // Routes
+// console.log("Hello before");
+
 app.use('/api/users', userRoutes);
+// console.log("Hello after");
 app.use('/api/blogs', blogRoutes);
+
 
 const createInitialAdmin = async () => {
   try {
@@ -44,7 +53,7 @@ const createInitialAdmin = async () => {
 
 // createInitialAdmin()
 
-
+app.get("/" , (req,res) => res.send("Working fine"))
 
 app.listen(PORT, console.log(`Server running on port ${PORT}`));
 connectDB()

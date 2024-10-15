@@ -70,6 +70,7 @@ const ActivitiesAndBulletine = (props) => {
       images: [news2],
       videos: [],
     },
+
     {
       media: news1,
       date: "July 20, 2024",

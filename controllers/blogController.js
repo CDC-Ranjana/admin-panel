@@ -4,14 +4,11 @@ const Blog = require("../models/blogModel");
 // creating post 
 const createPost = async (req, res) => {
   const { title, description, eventHighlights, createdBy } = req.body;
-
   // Get uploaded files from Cloudinary
   console.log("req.file in blog controller ", req.files);
   const images = req.images
   const videos = req.videos
   console.log("images", images, "videos", videos);
-
-
   try {
     const newBlog = new Blog({ title, description, eventHighlights, images, videos, createdBy });
     await newBlog.save();
