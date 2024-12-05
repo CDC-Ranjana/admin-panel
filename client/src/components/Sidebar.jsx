@@ -9,16 +9,16 @@ import {
   FaTable,
 } from "react-icons/fa";
 
-const Sidebar = ({ isCollapsed }) => {
+
+const Sidebar = ({ isCollapsed, onOptionClick }) => {
   const location = useLocation();
 
   return (
     <div
-      className={`bg-[#1d1d42] fixed top-0 left-0 transition-all duration-300 ${
+      className={`transition-all duration-300 h-screen flex flex-col  ${
         isCollapsed ? "w-20" : "w-64"
-      } h-full flex flex-col`}
+      }`}
     >
-      {/* Logo and Title */}
       <div
         className={`p-4 flex items-center space-x-4 ${
           isCollapsed ? "justify-center" : ""
@@ -29,14 +29,12 @@ const Sidebar = ({ isCollapsed }) => {
           <span className="text-xl text-[#edb259] font-bold">Soul Of Braj</span>
         )}
       </div>
-
-      {/* Navigation Links */}
       <nav className="mt-10 flex-1">
         <ul className="space-y-2">
-          {/* Admin */}
           <li>
             <Link
               to="/"
+              onClick={onOptionClick} // Hide sidebar on option click
               className={`flex items-center p-2 ${
                 location.pathname === "/"
                   ? "text-white bg-[rgb(39,39,79)]"
@@ -47,10 +45,10 @@ const Sidebar = ({ isCollapsed }) => {
               {!isCollapsed && <span className="ml-4">Admin</span>}
             </Link>
           </li>
-          {/* Stories */}
           <li>
             <Link
               to="/recent-activities"
+              onClick={onOptionClick}
               className={`flex items-center p-2 ${
                 location.pathname === "/recent-activities"
                   ? "text-white bg-[rgb(39,39,79)]"
@@ -61,10 +59,10 @@ const Sidebar = ({ isCollapsed }) => {
               {!isCollapsed && <span className="ml-4">Stories</span>}
             </Link>
           </li>
-          {/* All Activities */}
-          <li>
+          {/* <li>
             <Link
               to="/all-activities"
+              onClick={onOptionClick}
               className={`flex items-center p-2 ${
                 location.pathname === "/all-activities"
                   ? "text-white bg-[rgb(39,39,79)]"
@@ -74,11 +72,11 @@ const Sidebar = ({ isCollapsed }) => {
               <FaChartBar className="text-xl ml-4" />
               {!isCollapsed && <span className="ml-4">All Activities</span>}
             </Link>
-          </li>
-          {/* Bulletins */}
+          </li> */}
           <li>
             <Link
               to="/bulletine"
+              onClick={onOptionClick}
               className={`flex items-center p-2 ${
                 location.pathname === "/bulletine"
                   ? "text-white bg-[rgb(39,39,79)]"

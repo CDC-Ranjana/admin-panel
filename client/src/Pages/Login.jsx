@@ -1,6 +1,4 @@
 
-
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 
@@ -30,9 +28,9 @@ const Login = ({ setIsAuthenticated }) => { // Receive setIsAuthenticated as a p
       return false;
     }
 
-    if (password.length < 6) {
+    if (password.length < 8) {
       setEmailErrorMessage("");
-      setPasswordErrorMessage("Password must be at least 6 characters long.");
+      setPasswordErrorMessage("Password must be at least 8 characters long.");
       return false;
     }
 
@@ -54,8 +52,8 @@ const Login = ({ setIsAuthenticated }) => { // Receive setIsAuthenticated as a p
   };
 
   return (
-    <section className="bg-gray-100">
-      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+    <section className="bg-gray-100 h-screen">
+      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen lg:py-0">
         <div className="w-full bg-white rounded-lg shadow sm:max-w-md xl:p-0">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
@@ -135,7 +133,7 @@ const Login = ({ setIsAuthenticated }) => { // Receive setIsAuthenticated as a p
               >
                 Sign in
               </button>
-              <p className="text-sm text-gray-500">
+              {/* <p className="text-sm text-gray-500">
                 Don’t have an account yet?{" "}
                 <a
                   href="#"
@@ -143,7 +141,7 @@ const Login = ({ setIsAuthenticated }) => { // Receive setIsAuthenticated as a p
                 >
                   Sign up
                 </a>
-              </p>
+              </p> */}
             </form>
           </div>
         </div>
